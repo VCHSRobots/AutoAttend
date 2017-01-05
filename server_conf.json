@@ -1,0 +1,8 @@
+{
+	"AttendanceServer":"localhost",
+	"AttendancePort":23456,
+	"SharedPassPhrase":"EpicRobotzRocksLikeTheSun",
+	"LogFolder" : "/home/dal/dev/attendance/logs",
+	"TimeZone" : "US/Pacific",
+	"Database" : { "user":"root", "password":"beach", "host":"localhost", "database":"atten" }
+}

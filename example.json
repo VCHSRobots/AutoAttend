@@ -1,0 +1,59 @@
+{
+	"MessageType" :"Scan",
+	"MessageGUID" : "10980980198743",
+	"Machine" : "EpicAttendanceScanner01",
+	"ScanGUID" : "91-9893-108971093287-123978",
+	"ScanTime" : "2017-07-07_12:57:22",
+	"ScanText" : "AE C0023b",
+
+}
+
+{
+	"MessageType" : "ServerAck",
+	"MessageGUID" : "012983701982374",
+	"CurrentRosterGUID" : "187019823740987" 
+}
+
+
+{  
+	"MessageType" :"RequestStatus",
+	"MessageGUID" : "10980980198743",
+	"Machine" : "EpicAttendanceScanner01",
+}
+{
+	"MessageType" : "ServerAck",
+	"MessageGUID" : "012983701982374",
+	"CurrentRosterGUID" : "187019823740987" 
+}
+
+
+
+{  
+	"MessageType" :"RequestRoster",
+	"MessageGUID" : "10980980198743",
+	"Machine" : "EpicAttendanceScanner01",
+}
+
+{
+	"MessageType" : "Roster",
+	"MessageGUID" : "098709812709871324",
+	"RosterFile"  : "Base 64 Encoded"
+}
+
+
+{
+	"MessageType" : "RequestPicture",
+	"MessageGUID" : "098709812709871324",
+	"PictureGUID" : "1984-192-40981",
+}
+
+{ 
+	"MessageType" : "Picture",
+	"MessageGUID" : "098709812709871324",
+	"Status" : "Success",
+	"PictureGUID" : "1984-192-40981",
+	"PictureData" : "Encoded base 64"
+}
+
+
+hellosee th

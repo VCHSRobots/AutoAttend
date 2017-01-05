@@ -1,3 +1,8 @@
+# Data generated for testing
+logs/
+scans/
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
