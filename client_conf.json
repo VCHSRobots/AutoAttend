@@ -2,7 +2,7 @@
 	"AttendanceServer":"localhost",
 	"AttendancePort":23456,
 	"SharedPassPhrase":"EpicRobotzRocksLikeTheSun",
-	"LogFolder" : "/home/dal/dev/attendance/logs",
-	"ScanFolder" : "/home/dal/dev/attendance/scans",
+	"LogFolder" : "/home/dal/dev/att/logs",
+	"ScanFolder" : "/home/dal/dev/att/scans",
 	"TimeZone" : "US/Pacific"
 }

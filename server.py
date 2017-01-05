@@ -21,45 +21,8 @@ import time
 import datetime
 import MySQLdb
 from threading import Thread
-from Crypto.Cipher import AES
-
-
-class Logit:
-    logfolder = ""
-    def init(self, folder):
-        if len(folder) <= 0 :
-            print("Log folder not specified.")
-            os._exit(1)
-        if folder[-1] != '/' :
-            folder += '/'
-        if not os.path.exists(folder) :
-            print("Log folder (" + folder + ") does not exist.")
-            os._exit(1)
-        self.logfolder = folder
-    def log(self, s):
-        if self.logfolder != "":
-            tz = datetime.tzinfo()
-            tme = datetime.datetime.now()
-            bn = "s%04d%02d%02d.log" % (tme.year, tme.month, tme.day)
-            stamp =  "[%04d%02d%02d-%02d:%02d:%02d] " % (tme.year, tme.month, tme.day, tme.hour, tme.minute, tme.second)
-            fn = self.logfolder + bn
-            try:
-                with open(fn, 'ab') as f:
-                    f.write(stamp + s + "\n")
-            except:
-                print("Unable to write to log file (%s)." % fn)
-
-Log = Logit()
-def log(s):
-    print(s)
-    global Log 
-    Log.log(s)
-
-def logerr(s):
-    s = "Error: " + s
-    print(s)
-    global Log
-    Log.log(s)
+from log import log, logerr, initlog
+import cipher
 
 class ServerAttendanceConfig:
 
@@ -114,27 +77,6 @@ class ServerAttendanceConfig:
         log("Database, password = " + self.Database["password"])
         log("Database, host = "     + self.Database["host"])
         log("Database, database = " + self.Database["database"])        
-
-
-class Cipher:
-    def __init__(self, passphrase):
-        if len(passphrase) < 16:
-            log("PassPhrase must be at least 16 chars long.")
-            os._exit(1)
-        self.key = passphrase[:16]
-    def encrypt(self, msg):
-        nadd = len(msg) % 16
-        if nadd != 0 :
-            nadd = 16 - nadd
-        #print("Origina msg len, nadd= %d, %d.", (len(msg), nadd))
-        spaces = "                                                         "
-        msg += spaces[:nadd]
-        cobj = AES.new(self.key)
-        #print("message lenght = %d" % (len(msg)))
-        return cobj.encrypt(msg) 
-    def decrypt(self, cryptotext):
-        cobj = AES.new(self.key)
-        return cobj.decrypt(cryptotext)
 
 class ClientThread(Thread):
  
@@ -196,9 +138,7 @@ class Main:
     def __init__(self):
         global Log
         self.config = ServerAttendanceConfig("server_conf.json")
-        Log.init(self.config.LogFolder)
-        os.environ['TZ'] = self.config.TimeZone
-        time.tzset() 
+        initlog(self.config.LogFolder, "s", self.config.TimeZone)
         log("")
         log("Server Starting Up.")
         self.config.dumptolog()
@@ -211,7 +151,7 @@ class Main:
             os._exit(1)
         else :
             log("Database okay.")
-        self.cipher = Cipher(self.config.PassPhrase)
+        self.cipher = cipher.Cipher(self.config.PassPhrase)
 
     def run(self):
         serverthread = ServerThread(self.config.Port, self.cipher)
